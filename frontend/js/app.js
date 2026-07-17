@@ -135,8 +135,8 @@ async function navigateToView(viewName) {
     currentActiveView = viewName;
     const viewContainer = document.getElementById("view-container");
     
-    // Set sidebar active styles
-    document.querySelectorAll(".sidebar-nav .nav-item").forEach(btn => {
+    // Set active styles for both sidebar and mobile bottom navigation items
+    document.querySelectorAll(".nav-item").forEach(btn => {
         if (btn.dataset.view === viewName) {
             btn.classList.add("active");
         } else {
@@ -256,8 +256,8 @@ function bindAuthEvents() {
 
 // --- CORE NAVIGATION EVENTS ---
 function bindNavEvents() {
-    // Sidebar clicks
-    document.querySelectorAll(".sidebar-nav .nav-item").forEach(btn => {
+    // Navigation items click (handles both sidebar and mobile bottom nav)
+    document.querySelectorAll(".nav-item").forEach(btn => {
         btn.addEventListener("click", () => {
             const targetView = btn.dataset.view;
             navigateToView(targetView);
