@@ -1251,17 +1251,79 @@ select option {
 /* ==========================================================================
    Responsive Adaptations
    ========================================================================== */
+/* Mobile Bottom Navigation Bar Base Styles */
+.mobile-nav-bar {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 64px;
+    background: rgba(10, 15, 30, 0.7);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border-color);
+    z-index: 999;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 10px;
+    box-sizing: border-box;
+    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.mobile-nav-bar .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 10px;
+    font-weight: 500;
+    gap: 4px;
+    padding: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex: 1;
+    height: 100%;
+}
+
+.mobile-nav-bar .nav-item i {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s ease;
+}
+
+.mobile-nav-bar .nav-item:hover i {
+    transform: translateY(-2px);
+}
+
+.mobile-nav-bar .nav-item.active {
+    color: var(--primary);
+    background: transparent;
+}
+
+.mobile-nav-bar .nav-item.active i {
+    color: var(--primary);
+    filter: drop-shadow(0 0 4px var(--primary));
+}
+
 @media (max-width: 1024px) {
     .app-layout {
         grid-template-columns: 1fr;
     }
     
     .sidebar {
-        display: none; /* In a full responsive app we would make a drawer menu, which app.js can manage or a bottom bar. */
+        display: none !important;
+    }
+    
+    .mobile-nav-bar {
+        display: flex;
     }
     
     .viewport {
         padding: 20px;
+        padding-bottom: 90px; /* Safe space to prevent coverage by bottom nav */
     }
     
     .dashboard-middle-grid, .dashboard-bottom-grid, .profile-grid, .budget-goals-section, .analytics-grid {
@@ -1270,5 +1332,80 @@ select option {
     
     .analytics-full-width {
         grid-column: span 1;
+    }
+}
+
+/* Header & Icon-only adjustments for Mobile layout */
+@media (max-width: 768px) {
+    .app-header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 16px;
+        gap: 8px;
+    }
+    
+    .header-left #welcome-message {
+        font-size: 15px;
+    }
+    
+    .header-left #current-date-time {
+        display: none; /* Hide date/time string to clear header width */
+    }
+    
+    .header-right {
+        gap: 6px;
+    }
+    
+    #cloud-sync-badge {
+        padding: 8px;
+        border-radius: 50%;
+    }
+    #cloud-sync-badge #cloud-sync-text {
+        display: none; /* Hide text, icon only */
+    }
+    
+    .streak-badge {
+        padding: 8px;
+        border-radius: 50%;
+        font-size: 11px;
+    }
+    .streak-badge span {
+        font-weight: 700;
+    }
+    /* Hide text labels, show flames + streak number only */
+    .streak-badge {
+        font-size: 0;
+    }
+    .streak-badge #streak-count {
+        font-size: 11px;
+        display: inline-block;
+        margin-left: 2px;
+    }
+    
+    /* Condense Add Transaction Button into a floating Action style icon */
+    #quick-add-btn {
+        font-size: 0 !important; /* Hide label */
+        padding: 10px !important;
+        border-radius: 50% !important;
+        min-width: unset;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    #quick-add-btn i {
+        margin: 0 !important;
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* Hide labels on small phone displays */
+@media (max-width: 480px) {
+    .mobile-nav-bar {
+        height: 56px;
+    }
+    .mobile-nav-bar .nav-item span {
+        display: none;
     }
 }
